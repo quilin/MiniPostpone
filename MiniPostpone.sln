@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPostpone.MessageProvide
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPostpone.Service", "MiniPostpone.Service\MiniPostpone.Service.csproj", "{37D8E51B-C307-4A37-A73A-76E2785D3890}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPostpone.Tests", "MiniPostpone.Tests\MiniPostpone.Tests.csproj", "{8B3C47D3-704A-469D-84E7-EFB042FB0E3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B3C47D3-704A-469D-84E7-EFB042FB0E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3C47D3-704A-469D-84E7-EFB042FB0E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3C47D3-704A-469D-84E7-EFB042FB0E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3C47D3-704A-469D-84E7-EFB042FB0E3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
