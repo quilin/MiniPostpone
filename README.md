@@ -26,7 +26,7 @@ Message scheduling requires the message itself, its routing key and relative or 
 ```csharp
 var connectionFactory = new ConnectionFactory();                        // From RabbitMQ.Client NuGet package
 var messageProvider = new PostponedMessageProvider(connectionFactory);  // The provider itself
-var id = await messageProvider.ScheduleMessage(message: "Hello, world!", routingKey: "hello.world", timeout: TimeSpan.FromMinutes(5));
+var id = await messageProvider.ScheduleMessage("Hello, world!", "hello.world", TimeSpan.FromMinutes(5));
 ```
 
 The provider then creates an exchange and a queue with unique names and binds those together. The queue has TTL of a given timeout.
