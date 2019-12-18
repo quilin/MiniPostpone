@@ -1,5 +1,5 @@
 using System;
-using System.Threading;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MiniPostpone.MessageProvider;
 using RabbitMQ.Client;
@@ -25,8 +25,9 @@ namespace MiniPostpone.Tests
         [Fact]
         public async Task PostponeMessage()
         {
-            var counter = 0;
             const string testQueue = nameof(testQueue);
+            var flag = false;
+            var timer = new Stopwatch();
 
             using var connection = connectionFactory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -34,16 +35,25 @@ namespace MiniPostpone.Tests
             channel.QueueDeclare(testQueue, true);
             channel.QueueBind(testQueue, PostponeMq.OutputExchangeName, "test.*");
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (_, args) => Interlocked.Increment(ref counter);
+            consumer.Received += (_, args) =>
+            {
+                flag = true;
+                timer.Stop();
+                channel.BasicAck(args.DeliveryTag, false);
+            };
             channel.BasicConsume(consumer, testQueue);
 
-            await messageProvider.ScheduleMessage("whatever", "test.me", TimeSpan.FromSeconds(5));
+            var timeout = TimeSpan.FromSeconds(5);
+            await messageProvider.ScheduleMessage("whatever", "test.me", timeout);
+            timer.Start();
 
             await Task.Delay(TimeSpan.FromSeconds(4));
-            Assert.Equal(0, counter);
+            Assert.False(flag);
 
             await Task.Delay(TimeSpan.FromSeconds(2));
-            Assert.Equal(1, counter);
+            Assert.True(flag);
+
+            Assert.True(Math.Abs(timer.ElapsedMilliseconds - timeout.TotalMilliseconds) < 100);
         }
     }
 }
