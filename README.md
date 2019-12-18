@@ -52,3 +52,4 @@ I'm not a big fan of this workaround, either. But got nothing better in my mind.
 
 ## What next?
 This project is not some sort of a startup or even something serious. I'm not using it myself yet in a petproject, but I'm about to.
+I might add a support for some rescheduling, but meh.
