@@ -5,8 +5,8 @@ namespace MiniPostpone.MessageProvider
 {
     public interface IPostponedMessageProvider
     {
-        Task<Guid> ScheduleMessage(object message, TimeSpan timeout);
-        Task<Guid> ScheduleMessage(object message, DateTime dateTime);
+        Task<Guid> ScheduleMessage(object message, string routingKey, TimeSpan timeout);
+        Task<Guid> ScheduleMessage(object message, string routingKey, DateTime dateTime);
         Task CancelSchedule(Guid messageId);
     }
 }
