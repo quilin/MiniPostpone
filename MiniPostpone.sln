@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPostpone.MessageProvider", "MiniPostpone.MessageProvider\MiniPostpone.MessageProvider.csproj", "{94262D21-7AC7-4C3D-BA61-ED993AA78E36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPostpone.Service", "MiniPostpone.Service\MiniPostpone.Service.csproj", "{37D8E51B-C307-4A37-A73A-76E2785D3890}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94262D21-7AC7-4C3D-BA61-ED993AA78E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94262D21-7AC7-4C3D-BA61-ED993AA78E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94262D21-7AC7-4C3D-BA61-ED993AA78E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94262D21-7AC7-4C3D-BA61-ED993AA78E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D8E51B-C307-4A37-A73A-76E2785D3890}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
