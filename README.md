@@ -40,3 +40,15 @@ await messageProvider.CancelSchedule(id);
 ```
 
 The bad news is that those unique-named queue and exchange will eventually make your RabbitMQ server a pile of ~~trash~~ empty queues and exchanges that never being used. To fix it there's also a cleaning service in this repository. It is a Service worker from dotnet 3.0 and it creates specific queue to trace all the messages that come to the output exchange and then just removes their source queue and exchange.
+
+## Wait, why not just put all the messages in one queue? Why many??
+There are two reasons:
+1. RabbitMQ queues are true FIFO, so even if your message is timed out it will not be out of the queue until it is in the start of it. So if you put a message with 3h timeout and then a message with 1h timeout, the second will get from the queue only after 3 hours. Pity.
+2. Again, the FIFO issue. Sometimes you want to cancel the scheduled sending and it means you have to remove the message from the queue, but you cannot do that if the message is somewhere in the middle.
+
+You can put some gateway to read messages and then remove it after the timeout but that means holding a storage with message ids (even if the id is just `DeliveryTag`).
+
+I'm not a big fan of this workaround, either. But got nothing better in my mind.
+
+## What next?
+This project is not some sort of a startup or even something serious. I'm not using it myself yet in a petproject, but I'm about to.
