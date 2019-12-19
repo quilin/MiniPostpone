@@ -18,12 +18,8 @@ namespace MiniPostpone.MessageProvider
             this.connectionFactory = connectionFactory;
         }
 
-        public Task<Guid> ScheduleMessage(object message, string routingKey, TimeSpan timeout)
+        private static void EnsureTopology(IModel channel, Guid messageId, TimeSpan timeout)
         {
-            using var connection = connectionFactory.CreateConnection();
-            using var channel = connection.CreateModel();
-
-            var messageId = Guid.NewGuid();
             var exchangeName = PostponeMq.InputExchangeName(messageId);
             var queueName = PostponeMq.InputQueueName(messageId);
             channel.ExchangeDeclare(PostponeMq.OutputExchangeName, ExchangeType.Topic, true);
@@ -35,8 +31,20 @@ namespace MiniPostpone.MessageProvider
                     ["x-message-ttl"] = (int) timeout.TotalMilliseconds
                 });
             channel.QueueBind(queueName, exchangeName, "#");
-            channel.BasicPublish(exchangeName, routingKey, new BasicProperties(),
-                Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message)));
+        }
+
+        public Task<Guid> ScheduleMessage(object message, string routingKey, TimeSpan timeout)
+        {
+            using var connection = connectionFactory.CreateConnection();
+            using var channel = connection.CreateModel();
+
+            var messageId = Guid.NewGuid();
+            EnsureTopology(channel, messageId, timeout);
+
+            var messageBody = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+            var basicProperties = new BasicProperties {Persistent = true};
+            var exchangeName = PostponeMq.InputExchangeName(messageId);
+            channel.BasicPublish(exchangeName, routingKey, basicProperties, messageBody);
 
             return Task.FromResult(messageId);
         }
