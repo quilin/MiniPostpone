@@ -29,7 +29,8 @@ namespace MiniPostpone.Service
         {
             var connectionFactory = new ConnectionFactory
             {
-                Endpoint = new AmqpTcpEndpoint(new Uri(configuration.Value.ConnectionUri))
+                Endpoint = new AmqpTcpEndpoint(new Uri(configuration.Value.ConnectionUri)),
+                AutomaticRecoveryEnabled = true
             };
 
             var connection = connectionFactory.CreateConnection();
